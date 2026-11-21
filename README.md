@@ -43,7 +43,8 @@ https://github.com/user-attachments/assets/d90bfed5-5b45-404e-8372-094d61fad898
    - the URDF package (not needed without ROS);
    - the export's 16 collision meshes (replaced by simple shapes, see below).
 3. **Make it drivable.** `build_scene.py` reads the export and writes `robot_scene.xml`: the same
-   robot with wheel/caster collision shapes, wheel motors, a floor and physics settings.
+   robot with wheel/caster collision shapes, wheel motors, material colours, a floor and physics
+   settings.
 4. **Drive it.** `teleop.py` opens the MuJoCo viewer and drives the robot with the arrow keys.
 
 ---
@@ -90,12 +91,47 @@ The base frame's origin is about 10 mm off-centre in Y (the CAD's wheels are not
 it), and the caster balls reach 2 mm lower than the wheels, so the robot rests about 0.6° nose-up.
 Both are faithful to the CAD and handled automatically.
 
+### Materials
+Each part was given its real material in SolidWorks, so the **masses and inertias in the export
+come from the CAD**. The simulation keeps them unchanged and uses the materials only to colour
+the parts:
+
+| Part | Qty | Material (SolidWorks) | Density [kg/m³] | Mass each | Colour in MuJoCo |
+|---|---|---|---|---|---|
+| Base plate, 6 mm | 1 | Acrylic (medium-high impact) | 1200 | 0.502 kg | light grey, semi-transparent |
+| Body shell / case | 1 | ABS | 1020 | 0.335 kg | white |
+| Lid | 1 | ABS | 1020 | 0.285 kg | white |
+| Lidar puck | 1 | ABS | 1020 | 0.123 kg | dark grey |
+| Drive wheel Ø100 × 25 mm | 2 | ABS | 1020 | 0.180 kg | black (tyre look) |
+| DC gear motor | 2 | 1060 aluminium alloy | 2700 | 0.087 kg | aluminium grey |
+| Motor bracket | 4 | 6061 aluminium alloy | 2700 | 0.018 kg | aluminium grey |
+| Caster housing | 2 | ABS | 1020 | 0.010 kg | white |
+| Caster ball Ø25 mm | 2 | Plain carbon steel | 7800 | 0.064 kg | steel grey |
+
+**Mass check** (printed by `build_scene.py` every time it runs; it reports, it never changes masses):
+
+| Body | In the model | From the materials table |
+|---|---|---|
+| `base_link` (all fixed parts) | 1.639 kg | 1.639 kg ✓ |
+| `left_wheel`, `right_wheel` | 0.180 kg each | 0.180 kg ✓ |
+| **Total** | **1.998 kg** | **1.999 kg** ✓ |
+
+**Contact friction** (set only on the simple collision shapes, see below):
+
+| Surface | Contact | Friction (sliding, torsional, rolling) |
+|---|---|---|
+| Wheels | rubber-like tyre | 1.2, 0.005, 0.0001 |
+| Caster balls | frictionless steel ball (`condim 1`, `priority 1`) | none |
+| Floor | MuJoCo default | 1.0 |
+
 ### What `build_scene.py` adds to the export
 The export already has the right bodies, joints, masses and inertias. What it lacks for a wheeled
 robot is added or replaced:
 
-**Collision geometry.** All meshes are **visual only**. Collision uses simple primitives, which
-roll smoothly and are cheap to simulate:
+**Visual meshes.** All meshes are **visual only**, coloured by their material (table above).
+
+**Collision geometry.** Collision uses simple primitives, which roll smoothly and are cheap to
+simulate:
 - **Wheels:** one cylinder per wheel. Its radius and width are measured from the wheel mesh, and
   it is centred on the wheel and aligned with the joint's **world-frame** axis. The joint axes are
   written in unusual local frames in the export; in the world both point along +Y. Friction 1.2.

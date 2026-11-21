@@ -37,34 +37,34 @@
     <body name="base_link" pos="0 0 0.00500033">
       <inertial pos="0.0714604 0.00972639 0.0665736" quat="-2.71881e-06 0.999984 1.23018e-05 -0.00557464" mass="1.63892" diaginertia="0.0123298 0.0171935 0.0223318"/>
       <joint name="floating_base" type="free"/>
-      <geom name="base_link_visual0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="base_plate_1_0"/>
-      <geom name="base_link_visual1" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="shell_1_1"/>
-      <geom name="base_link_visual2" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="castor_housing_1_2"/>
-      <geom name="base_link_visual3" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="castor_housing_1_2_3"/>
-      <geom name="base_link_visual4" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.866667 0.909804 1 1" mesh="motor_clamp_2_4"/>
-      <geom name="base_link_visual5" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.866667 0.909804 1 1" mesh="motor_clamp_2_2_5"/>
-      <geom name="base_link_visual6" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.866667 0.909804 1 1" mesh="motor_clamp_2_3_6"/>
-      <geom name="base_link_visual7" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.866667 0.909804 1 1" mesh="motor_clamp_2_4_7"/>
-      <geom name="base_link_visual8" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="lid_1_8"/>
-      <geom name="base_link_visual9" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="lidar_1_9"/>
-      <geom name="base_link_visual10" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.866667 0.909804 1 1" mesh="motor_1_10"/>
-      <geom name="base_link_visual11" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.776471 0.756863 0.733333 1" mesh="castor_ball_1_11"/>
-      <geom name="base_link_visual12" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.776471 0.756863 0.733333 1" mesh="castor_ball_1_2_12"/>
-      <geom name="base_link_visual13" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.866667 0.909804 1 1" mesh="motor_1_2_13"/>
+      <geom name="base_link_visual0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.8 0.85 0.9 0.6" mesh="base_plate_1_0"/>
+      <geom name="base_link_visual1" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.95 0.95 0.95 1" mesh="shell_1_1"/>
+      <geom name="base_link_visual2" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.95 0.95 0.95 1" mesh="castor_housing_1_2"/>
+      <geom name="base_link_visual3" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.95 0.95 0.95 1" mesh="castor_housing_1_2_3"/>
+      <geom name="base_link_visual4" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.7 0.72 0.75 1" mesh="motor_clamp_2_4"/>
+      <geom name="base_link_visual5" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.7 0.72 0.75 1" mesh="motor_clamp_2_2_5"/>
+      <geom name="base_link_visual6" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.7 0.72 0.75 1" mesh="motor_clamp_2_3_6"/>
+      <geom name="base_link_visual7" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.7 0.72 0.75 1" mesh="motor_clamp_2_4_7"/>
+      <geom name="base_link_visual8" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.95 0.95 0.95 1" mesh="lid_1_8"/>
+      <geom name="base_link_visual9" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.15 0.15 0.17 1" mesh="lidar_1_9"/>
+      <geom name="base_link_visual10" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.7 0.72 0.75 1" mesh="motor_1_10"/>
+      <geom name="base_link_visual11" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.8 0.8 0.82 1" mesh="castor_ball_1_11"/>
+      <geom name="base_link_visual12" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.8 0.8 0.82 1" mesh="castor_ball_1_2_12"/>
+      <geom name="base_link_visual13" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.7 0.72 0.75 1" mesh="motor_1_2_13"/>
       <geom name="caster_ball_1_collision" size="0.0125001" pos="0.175556 0.0847264 0.00950031" contype="1" condim="1" group="3" priority="1" mass="0" rgba="0.6 0.6 0.6 1"/>
       <geom name="caster_ball_2_collision" size="0.0125001" pos="0.175556 -0.0652736 0.00949976" contype="1" condim="1" group="3" priority="1" mass="0" rgba="0.6 0.6 0.6 1"/>
       <site name="imu_in_body" pos="0 0 0" group="4" rgba="0 1 0 1"/>
       <body name="left_wheel" pos="-0.00944414 0.122726 0.0490005" quat="0.701921 0.674799 0.0854713 0.2113">
         <inertial pos="0.00185393 0 -0.00410036" quat="0.977546 0 -0.210724 0" mass="0.179653" diaginertia="0.00012674 0.00012674 0.000237594"/>
         <joint name="left_wheel_joint" pos="0 0 0" axis="0.411984 0 -0.911191"/>
-        <geom name="left_wheel_visual0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="traction_wheel_1_2_28"/>
+        <geom name="left_wheel_visual0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.1 0.1 0.1 1" mesh="traction_wheel_1_2_28"/>
         <geom name="left_wheel_collision" size="0.0500001 0.0125" pos="0.00185393 0 -0.00410036" quat="0.977546 0 -0.210724 0" type="cylinder" contype="1" group="3" friction="1.2" mass="0" rgba="0.15 0.15 0.15 1"/>
         <site name="left_wheel" pos="-0.00527628 -0.0493742 -0.00732419" group="4" rgba="1 0 0 1"/>
       </body>
       <body name="right_wheel" pos="-0.00944414 -0.152274 0.0489994" quat="0.701921 0.674799 0.0854713 0.2113">
         <inertial pos="0.0183333 0 -0.040548" quat="0 0.977546 0 0.210724" mass="0.179653" diaginertia="0.00012674 0.00012674 0.000237594"/>
         <joint name="right_wheel_joint" pos="0 0 0" axis="0.411984 0 -0.911191"/>
-        <geom name="right_wheel_visual0" type="mesh" contype="0" conaffinity="0" group="2" rgba="1 1 1 1" mesh="traction_wheel_1_30"/>
+        <geom name="right_wheel_visual0" type="mesh" contype="0" conaffinity="0" group="2" rgba="0.1 0.1 0.1 1" mesh="traction_wheel_1_30"/>
         <geom name="right_wheel_collision" size="0.0500001 0.0125" pos="0.0183333 0 -0.040548" quat="0.977546 0 -0.210724 0" type="cylinder" contype="1" group="3" friction="1.2" mass="0" rgba="0.15 0.15 0.15 1"/>
         <site name="right_wheel" pos="0.0111877 -0.0493705 -0.0437788" group="4" rgba="1 0 0 1"/>
       </body>

@@ -40,7 +40,34 @@ WHEELS = {  # side -> (wheel body, wheel joint, visual mesh geom of the wheel)
     'right': ('right_wheel', 'right_wheel_joint', 'right_wheel_visual0'),
 }
 CASTER_BALL_GEOMS = ('base_link_visual11', 'base_link_visual12')   # castor_ball_1, castor_ball_1_2
-WHEEL_FRICTION = (1.2, 0.005, 0.0001)      # sliding, torsional, rolling
+WHEEL_FRICTION = (1.2, 0.005, 0.0001)      # rubber-like tyre: sliding, torsional, rolling
+                                           # (casters: frictionless; floor: MuJoCo default 1.0)
+
+# ---- materials (assigned in SolidWorks) ----------------------------------------------------
+# Masses and inertias come from the CAD export and are NOT changed here. The materials are used
+# to (a) colour the visual meshes and (b) sanity-check the exported masses.
+MATERIAL_RGBA = {
+    'acrylic':   (0.80, 0.85, 0.90, 0.6),     # base plate, light grey, semi-clear
+    'abs_white': (0.95, 0.95, 0.95, 1.0),     # shell, lid, caster housings
+    'abs_dark':  (0.15, 0.15, 0.17, 1.0),     # lidar puck
+    'tyre':      (0.10, 0.10, 0.10, 1.0),     # drive wheels (ABS, black tyre look)
+    'aluminium': (0.70, 0.72, 0.75, 1.0),     # motors (1060) and motor brackets (6061)
+    'steel':     (0.80, 0.80, 0.82, 1.0),     # caster balls (plain carbon steel)
+}
+# mesh-name prefix -> material, checked in order: longer names first, because 'lidar' starts
+# with 'lid' and 'motor_clamp' with 'motor'
+PART_MATERIAL = (
+    ('base_plate', 'acrylic'), ('shell', 'abs_white'), ('lidar', 'abs_dark'), ('lid', 'abs_white'),
+    ('castor_housing', 'abs_white'), ('traction_wheel', 'tyre'),
+    ('motor_clamp', 'aluminium'), ('motor', 'aluminium'), ('castor_ball', 'steel'),
+)
+# Expected masses from SolidWorks (kg): every part except the wheels is fixed to base_link.
+EXPECTED_MASS = {
+    'base_link': 0.502 + 0.335 + 0.285 + 0.123 + 2 * 0.087 + 4 * 0.018 + 2 * 0.010 + 2 * 0.064,
+    'left_wheel': 0.180,
+    'right_wheel': 0.180,
+}
+MASS_TOLERANCE = 0.05                      # report a body whose mass differs by more than 5 %
 SPAWN_CLEARANCE = 0.002                    # [m] lowest collision point above the floor at spawn
 MOTOR_KV = 2.0                             # velocity actuator gain [N m / (rad/s)]
 MOTOR_CTRL = 20.0                          # [rad/s] ctrlrange +-
@@ -95,9 +122,12 @@ def main() -> None:
             spec.delete(mesh)
     for a in list(spec.actuators):
         spec.delete(a)
-    for g in spec.geoms:                 # every remaining mesh is visual only
+    for g in spec.geoms:                 # every remaining mesh is visual only, coloured by material
         if g.type == mujoco.mjtGeom.mjGEOM_MESH:
             g.contype, g.conaffinity, g.group = 0, 0, 2
+            material = next((mat for prefix, mat in PART_MATERIAL if g.meshname.startswith(prefix)), None)
+            if material:
+                g.rgba = MATERIAL_RGBA[material]
 
     # ---- 2. measure the robot (visual meshes) with the base at the origin ------------
     base = spec.body('base_link')
@@ -211,7 +241,13 @@ def main() -> None:
         print(f'  caster {i}: centre {np.round(c, 4)}  radius {rad:.4f} m (frictionless)')
     print(f'wheel radius r = {r:.4f} m')
     print(f'track width  L = {track:.4f} m')
-    print(f'total mass     = {model.body_subtreemass[1]:.3f} kg')
+    print(f'total mass     = {model.body_subtreemass[1]:.3f} kg '
+          f'(SolidWorks materials: {sum(EXPECTED_MASS.values()):.3f} kg)')
+    for body, expected in EXPECTED_MASS.items():      # report only; masses are never changed
+        actual = float(model.body(body).mass[0])
+        ok = abs(actual - expected) <= MASS_TOLERANCE * expected
+        print(f'  {body:11s} {actual:.3f} kg vs {expected:.3f} kg expected  '
+              f'{"OK" if ok else "<-- CHECK THIS BODY (mass differs > 5 %)"}')
     print(f'motors         = velocity, kv {MOTOR_KV}, ctrl +-{MOTOR_CTRL} rad/s, torque limit +-{MOTOR_TORQUE} N m')
     print(f'spawn height   = {spawn_z:.4f} m (lowest collision point {SPAWN_CLEARANCE * 1000:.0f} mm above floor)')
 
