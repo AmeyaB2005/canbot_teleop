@@ -108,13 +108,6 @@ the parts:
 | Caster housing | 2 | ABS | 1020 | 0.010 kg | white |
 | Caster ball Ø25 mm | 2 | Plain carbon steel | 7800 | 0.064 kg | steel grey |
 
-**Mass check** (printed by `build_scene.py` every time it runs; it reports, it never changes masses):
-
-| Body | In the model | From the materials table |
-|---|---|---|
-| `base_link` (all fixed parts) | 1.639 kg | 1.639 kg ✓ |
-| `left_wheel`, `right_wheel` | 0.180 kg each | 0.180 kg ✓ |
-| **Total** | **1.998 kg** | **1.999 kg** ✓ |
 
 **Contact friction** (set only on the simple collision shapes, see below):
 
