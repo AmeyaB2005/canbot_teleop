@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Full sw2robot export folders (kept locally; only the used MJCF files are in mjcf/)
+assem_mobile_description/
+assem_mobile_mjcf/
