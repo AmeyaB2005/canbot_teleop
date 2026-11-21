@@ -1,9 +1,19 @@
+
+
 # CanBot teleop
 
 Keyboard teleoperation of **CanBot**, a small differential-drive robot designed in SolidWorks and
 simulated in **MuJoCo** with plain Python (no ROS).
 
-> 🎬 **Demo video:** _link coming soon_ <!-- replace with the video link, e.g. YouTube / Google Drive -->
+
+
+
+https://github.com/user-attachments/assets/d90bfed5-5b45-404e-8372-094d61fad898
+
+
+
+
+
 
 | SolidWorks design | MuJoCo simulation |
 |---|---|
@@ -143,6 +153,9 @@ spawned 2 mm above the floor.
 
 ---
 
+![MuJoCo viewer during teleop](docs/images/mujoco_viewer_teleop.png)
+
+
 ## Teleop process
 
 ### 1. Setup (once)
@@ -191,4 +204,3 @@ Click the MuJoCo window so it receives the keys:
 
 The camera follows the robot, and the top-left corner shows v, w and both wheel commands:
 
-![MuJoCo viewer during teleop](docs/images/mujoco_viewer_teleop.png)
