@@ -189,12 +189,17 @@ spawned 2 mm above the floor.
 
 ### 1. Setup (once)
 ```bash
+git clone https://github.com/AmeyaB2005/canbot_teleop.git   # any folder works
 cd canbot_teleop
 python3 -m venv .venv            # Ubuntu 24.04: sudo apt install python3-venv if missing
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 On Windows with WSL2, the MuJoCo window opens through WSLg; no extra packages are needed.
+
+All paths are relative to the cloned folder (meshes in `mjcf/assets/`, the scene next to the
+scripts), so nothing needs editing and the scripts also run from another directory,
+e.g. `python canbot_teleop/teleop.py`.
 
 ### 2. Build the scene
 ```bash
@@ -219,7 +224,7 @@ It drives forward, stops hard and turns in place, then prints the results and
 
 ### 4. Drive it with the keyboard
 ```bash
-python teleop.py robot_scene.xml
+python teleop.py                 # default: robot_scene.xml next to the script
 ```
 Click the MuJoCo window so it receives the keys:
 

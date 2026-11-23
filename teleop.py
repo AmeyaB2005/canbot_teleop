@@ -16,6 +16,7 @@ Positive wheel commands drive the robot forward (+X): build_scene.py chose the g
 from __future__ import annotations
 
 import math
+import os
 import sys
 import threading
 import time
@@ -23,6 +24,9 @@ import time
 import mujoco
 import mujoco.viewer
 import numpy as np
+
+# default: the scene next to this script, so it runs from any folder
+DEFAULT_SCENE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'robot_scene.xml')
 
 # ---- command settings -------------------------------------------------------------------
 V_STEP, W_STEP = 0.05, 0.3        # change per key press / auto-repeat    [m/s], [rad/s]
@@ -88,7 +92,7 @@ def wheel_params(m: mujoco.MjModel, d: mujoco.MjData) -> tuple:
 
 
 def main() -> None:
-    scene = sys.argv[1] if len(sys.argv) > 1 else 'robot_scene.xml'
+    scene = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_SCENE
     m = mujoco.MjModel.from_xml_path(scene)
     d = mujoco.MjData(m)
     if m.nkey:

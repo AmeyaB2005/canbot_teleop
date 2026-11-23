@@ -9,12 +9,14 @@ no tipping / sinking / bouncing / NaN. Exit code 0 = all checks passed.
 """
 from __future__ import annotations
 
+import os
 import sys
 
 import mujoco
 import numpy as np
 
-SCENE = sys.argv[1] if len(sys.argv) > 1 else 'robot_scene.xml'
+# default: the scene next to this script, so it runs from any folder
+SCENE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), 'robot_scene.xml')
 FWD, TURN = 10.0, 5.0          # [rad/s] wheel commands
 
 
